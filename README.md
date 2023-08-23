@@ -1,4 +1,4 @@
-# one server many clients chat with socket programing
+#one server many clients chat with socket programing
 in this project clients connect to the server and start messaging and server send back their message to them\
 this program uses sockets to build connection between server and clients and each client will be precossed in seperate thread in the server.\
 each client has it's own priority and only highest priorities can chat with server so if a client 

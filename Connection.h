@@ -23,7 +23,7 @@ struct packet {
 
 class Connection {
 public:
-    int createSocket();
-    int bind();
-    int listen();
+  int createSocket();
+  int bind();
+  int listen();
 };
