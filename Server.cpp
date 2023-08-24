@@ -20,6 +20,12 @@ int main(int argc, char *argv[]) {
   int serv_sock_desc, cli_desc, port = 5001;
   struct sockaddr_in server, client;
 
+// This is my expectation from `main()`
+  // TransmissionHandler transmissionHandler;
+  // transmissionHandler.createSocket();
+  // transmissionHandler.bind();
+  // transmissionHandler.listen();
+
   if (argc == 2) {
     port = atoi(argv[1]);
   }
