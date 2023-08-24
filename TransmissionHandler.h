@@ -11,8 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <unistd.h>
 #include <thread>
+#include <unistd.h>
 
 #define R_BUF_SIZE 2000
 #define W_BUF_SIZE 2000
@@ -29,8 +29,6 @@ int clients = 0;
 pthread_t thread1;
 pthread_mutex_t authorization_lock, thr_ending_waiter, mutex1;
 pthread_cond_t thr_end_ctrler;
-
-
 
 struct TransmissionHandler {
   void *cli_desc_;
