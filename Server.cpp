@@ -9,6 +9,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <thread>
 
 #define MAX_CLI 5
 #define R_BUF_SIZE 2000
@@ -172,7 +173,7 @@ int main(int argc, char *argv[]) {
 
   listen(serv_sock_desc, 5);
 
-  pthread_t thread1;
+  // pthread_t thread1;
   int c = sizeof(struct sockaddr_in);
 
   puts("Waiting for connection ...");
@@ -186,11 +187,7 @@ int main(int argc, char *argv[]) {
     while (clients < MAX_CLI) {
       if (cli_desc = accept(serv_sock_desc, (struct sockaddr *)&client,
                             (socklen_t *)&c)) {
-        if (pthread_create(&thread1, NULL, transmission_handler,
-                           (void *)&cli_desc) < 0) {
-          perror("could not create thread");
-          return 1;
-        }
+        std::jthread thread(transmission_handler, (void *)&cli_desc);
       }
     }
   }
