@@ -30,7 +30,14 @@ pthread_t thread1;
 pthread_mutex_t authorization_lock, thr_ending_waiter, mutex1;
 pthread_cond_t thr_end_ctrler;
 
-int recognize(int cli_desc) {
+struct TransmissionHandler {
+  void *cli_desc_;
+  int recognize(int cli_desc);
+  TransmissionHandler(void *cli_desc) : cli_desc_(cli_desc) {}
+  void *operator()();
+};
+
+int TransmissionHandler::recognize(int cli_desc) {
   char cliMsg[10];
   bzero(cliMsg, 10);
 
@@ -53,9 +60,9 @@ int recognize(int cli_desc) {
   }
 }
 
-void *transmission_handler(void *cli_desc1) {
+void *TransmissionHandler::operator()() {
 
-  int cli_desc = *(int *)cli_desc1;
+  int cli_desc = *(int *)cli_desc_;
   char *message;
 
   int newPrior = recognize(cli_desc);
@@ -187,7 +194,7 @@ int main(int argc, char *argv[]) {
     while (clients < MAX_CLI) {
       if (cli_desc = accept(serv_sock_desc, (struct sockaddr *)&client,
                             (socklen_t *)&c)) {
-        std::jthread thread(transmission_handler, (void *)&cli_desc);
+        std::jthread thread(TransmissionHandler((void *)&cli_desc));
       }
     }
   }
