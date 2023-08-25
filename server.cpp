@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 
   listen(serverSocketDescriptor, 5);
 
-  int addrLen = sizeof(struct sockaddr_in);
+  int socketLen = sizeof(struct sockaddr_in);
 
   puts("Waiting for connection ...");
 
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
   while (1) {
     while (clients < MAX_CLI) {
       if (cli_desc = accept(serverSocketDescriptor, (struct sockaddr *)&client,
-                            (socklen_t *)&addrLen)) {
+                            (socklen_t *)&socketLen)) {
         std::jthread thread(TransmissionHandler((void *)&cli_desc));
       }
     }
